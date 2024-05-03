@@ -1,0 +1,33 @@
+.title {
+  font-size: 14px;
+  color: antiquewhite;
+  font-weight: bold;
+}
+
+.icon {
+  /* color: red; */
+  margin-right: 5px;
+}
+
+.chip {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  color: beige;
+  background-color: darkgrey;
+}
+
+.free {
+background-color: darkgreen;
+}
+
+.paid {
+  background-color: darkslateblue;
+}
+
+.vip {
+  background-color: chocolate;
+}
