@@ -5,7 +5,7 @@ import { theme } from './constants';
 import { App } from './components/App/App';
 import './index.css';
 
-console.log(theme);
+// console.log(theme);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
