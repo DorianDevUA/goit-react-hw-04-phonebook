@@ -1,5 +1,4 @@
 import { Component } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import { PageTitle } from '../PageTitle';
 import { TodoBoard } from '../TodoBoard';
 import { Counter } from '../TodoCounter';
@@ -16,7 +15,7 @@ export class App extends Component {
 
   addTodo = text => {
     const todo = {
-      id: uuidv4(),
+      id: crypto.randomUUID(),
       text,
       completed: false,
     };
