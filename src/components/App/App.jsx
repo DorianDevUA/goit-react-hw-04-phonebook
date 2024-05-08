@@ -3,6 +3,7 @@ import { Container } from './App.styled';
 import { Description } from '../Description';
 import { Options } from '../Options';
 import { Feedback } from '../Feedback';
+import { Notification } from '../Notification';
 
 export class App extends Component {
   state = {
@@ -16,6 +17,14 @@ export class App extends Component {
     this.setState({ [feedbackType]: this.state[feedbackType] + 1 });
   };
 
+  resetFeedback = () => {
+    this.setState({
+      good: 0,
+      neutral: 0,
+      bad: 0,
+    });
+  }
+
   countTotalFeedback = () => {
     const { good, neutral, bad } = this.state;
     return good + neutral + bad;
@@ -26,7 +35,6 @@ export class App extends Component {
   };
 
   render() {
-    console.log(this.state);
     const { good, neutral, bad } = this.state;
     const options = ['good', 'neutral', 'bad'];
     const totalFeedback = this.countTotalFeedback();
@@ -38,7 +46,12 @@ export class App extends Component {
     return (
       <Container>
         <Description />
-        <Options options={options} onLeaveFeedback={this.updateFeedback} />
+        <Options
+          options={options}
+          totalFeedback={totalFeedback}
+          onLeaveFeedback={this.updateFeedback}
+          onResetFeedback={this.resetFeedback}
+        />
         {totalFeedback ? (
           <Feedback
             good={good}
@@ -48,7 +61,7 @@ export class App extends Component {
             positivePercentage={positivePercentage}
           />
         ) : (
-          'No feedback yet'
+          <Notification />
         )}
       </Container>
     );
