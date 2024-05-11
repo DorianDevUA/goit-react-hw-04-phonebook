@@ -1,8 +1,7 @@
 import { Component } from 'react';
-import { Container } from './App.styled';
-import { Description } from '../Description';
-import { Options } from '../Options';
-import { Feedback } from '../Feedback';
+import { Section } from '../Section';
+import { FeedbackOptions } from '../FeedbackOptions';
+import { Statistics } from '../Statistics';
 import { Notification } from '../Notification';
 
 export class App extends Component {
@@ -23,7 +22,7 @@ export class App extends Component {
       neutral: 0,
       bad: 0,
     });
-  }
+  };
 
   countTotalFeedback = () => {
     const { good, neutral, bad } = this.state;
@@ -44,16 +43,18 @@ export class App extends Component {
     );
 
     return (
-      <Container>
-        <Description />
-        <Options
+      <>
+      <Section title={'Please leave feedback'}>
+        <FeedbackOptions
           options={options}
           totalFeedback={totalFeedback}
           onLeaveFeedback={this.updateFeedback}
           onResetFeedback={this.resetFeedback}
         />
+      </Section>
+      <Section title={'Statistics'}>
         {totalFeedback ? (
-          <Feedback
+          <Statistics
             good={good}
             neutral={neutral}
             bad={bad}
@@ -63,7 +64,8 @@ export class App extends Component {
         ) : (
           <Notification />
         )}
-      </Container>
+      </Section>
+      </>
     );
   }
 }

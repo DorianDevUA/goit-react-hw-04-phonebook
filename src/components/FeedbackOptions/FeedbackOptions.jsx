@@ -1,4 +1,9 @@
-export function Options({ options, totalFeedback, onLeaveFeedback, onResetFeedback }) {
+export function FeedbackOptions({
+  options,
+  totalFeedback,
+  onLeaveFeedback,
+  onResetFeedback,
+}) {
   return (
     <>
       {options.map(prop => (
