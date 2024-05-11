@@ -12,72 +12,56 @@ export class App extends Component {
   };
 
   updateFeedback = feedbackType => {
-    console.log(feedbackType);
     this.setState({ [feedbackType]: this.state[feedbackType] + 1 });
   };
 
-  resetFeedback = () => {
-    this.setState({
-      good: 0,
-      neutral: 0,
-      bad: 0,
-    });
+  getFeedbackTypes = () => {
+    return Object.keys(this.state);
   };
 
   countTotalFeedback = () => {
     const { good, neutral, bad } = this.state;
     return good + neutral + bad;
+    // return Object.values(this.state).reduce((acc, feedback) => {
+    //   return acc + feedback;
+    // }, 0);
   };
 
-  countPositiveFeedbackPercentage = (good, totalFeedback) => {
+  countPositiveFeedbackPercentage = () => {
+    const { good } = this.state;
+    const totalFeedback = this.countTotalFeedback();
     return Math.round((good / totalFeedback) * 100);
   };
 
   render() {
     const { good, neutral, bad } = this.state;
-    const options = ['good', 'neutral', 'bad'];
+    const options = this.getFeedbackTypes();
     const totalFeedback = this.countTotalFeedback();
-    const positivePercentage = this.countPositiveFeedbackPercentage(
-      good,
-      totalFeedback,
-    );
+    const positivePercentage = this.countPositiveFeedbackPercentage();
 
     return (
       <>
-      <Section title={'Please leave feedback'}>
-        <FeedbackOptions
-          options={options}
-          totalFeedback={totalFeedback}
-          onLeaveFeedback={this.updateFeedback}
-          onResetFeedback={this.resetFeedback}
-        />
-      </Section>
-      <Section title={'Statistics'}>
-        {totalFeedback ? (
-          <Statistics
-            good={good}
-            neutral={neutral}
-            bad={bad}
-            total={totalFeedback}
-            positivePercentage={positivePercentage}
+        <Section title={'Please leave feedback'}>
+          <FeedbackOptions
+            options={options}
+            onLeaveFeedback={this.updateFeedback}
           />
-        ) : (
-          <Notification />
-        )}
-      </Section>
+        </Section>
+
+        <Section title={'Statistics'}>
+          {totalFeedback ? (
+            <Statistics
+              good={good}
+              neutral={neutral}
+              bad={bad}
+              total={totalFeedback}
+              positivePercentage={positivePercentage}
+            />
+          ) : (
+            <Notification message={'There is no feedback'} />
+          )}
+        </Section>
       </>
     );
   }
 }
-
-//! |Комбінації клавіш VSCode
-// |-----------------------------------
-// |Ctrl + P
-// |Пошук файлів у проєкті
-// |-----------------------------------
-// |Ctrl + B
-// |Відкриття/Закриття Primary Side Bar (Explorer | Файл менеджер)
-// |-----------------------------------
-// |Ctrl + `
-// |Відкриття/Закриття Terminal
-// |-----------------------------------

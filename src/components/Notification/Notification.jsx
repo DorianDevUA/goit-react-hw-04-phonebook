@@ -1,5 +1,5 @@
-export function Notification() {
+export function Notification({message}) {
   return (
-    <p>No feedback yet</p>
+    <p>{message}</p>
   )
 }

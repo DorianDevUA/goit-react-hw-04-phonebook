@@ -1,21 +1,17 @@
-export function FeedbackOptions({
-  options,
-  totalFeedback,
-  onLeaveFeedback,
-  onResetFeedback,
-}) {
+import { FeedbackBtn, Feedbacks } from './FeedbackOptions.styled';
+
+export function FeedbackOptions({ options, onLeaveFeedback }) {
   return (
-    <>
+    <Feedbacks>
       {options.map(prop => (
-        <button key={prop} type="submit" onClick={() => onLeaveFeedback(prop)}>
+        <FeedbackBtn
+          key={prop}
+          type="submit"
+          onClick={() => onLeaveFeedback(prop)}
+        >
           {prop}
-        </button>
+        </FeedbackBtn>
       ))}
-      {totalFeedback > 0 && (
-        <button type="submit" onClick={onResetFeedback}>
-          Reset
-        </button>
-      )}
-    </>
+    </Feedbacks>
   );
 }
