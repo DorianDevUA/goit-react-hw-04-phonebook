@@ -22,7 +22,5 @@ export const GlobalStyle = createGlobalStyle`
 
   body {
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-    color: ${({ theme }) => theme.colors.white};
-    background-color: ${({ theme }) => theme.colors.secondaryBackground};
   }
 `;
