@@ -3,6 +3,7 @@ import { nanoid } from 'nanoid';
 import { ContactForm } from '../ContactForm';
 import { ContactList } from '../ContactList';
 import { Filter } from '../Filter';
+import { Container } from './App.styled';
 import contacts from '../../contacts.json';
 
 export class App extends Component {
@@ -11,16 +12,18 @@ export class App extends Component {
     filter: '',
   };
 
-  addContact = (name, number) => {
+  checkNameInContacts = name => {
     const { contacts } = this.state;
     const normalizedName = name.toLowerCase();
 
-    const isNameExist = contacts.some(
-      ({ name }) => name.toLowerCase() === normalizedName,
-    );
+    return contacts.some(({ name }) => name.toLowerCase() === normalizedName);
+  };
+
+  addContact = (name, number) => {
+    const isNameExist = this.checkNameInContacts(name);
 
     if (isNameExist) {
-      alert(`Контакт на ім'я ${name} вже існує!`);
+      alert(`Контакт "${name}" вже існує!`);
       return;
     }
 
@@ -42,7 +45,8 @@ export class App extends Component {
   };
 
   handleFilterChange = evt => {
-    this.setState({ filter: evt.target.value });
+    const { value } = evt.target;
+    this.setState({ filter: value });
   };
 
   getFilteredContacts = () => {
@@ -65,7 +69,7 @@ export class App extends Component {
     const totalContacts = this.getTotalContacts();
 
     return (
-      <div>
+      <Container>
         <h1>Phonebook</h1>
         <p>Всього контактів: {totalContacts}</p>
         <ContactForm onSubmit={this.addContact} />
@@ -76,7 +80,7 @@ export class App extends Component {
           contacts={filtredContacts}
           onDeleteContact={this.deleteContact}
         />
-      </div>
+      </Container>
     );
   }
 }

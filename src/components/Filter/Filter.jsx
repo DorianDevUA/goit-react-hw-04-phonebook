@@ -1,14 +1,21 @@
+import PropTypes from 'prop-types';
+import { Label, SearchField } from './Filter.styled';
+
 export function Filter({ value, onChange }) {
   return (
-    <label>
+    <Label>
       <span>Find contacts by name:</span>
-      <input
+      <SearchField
         type="text"
         name="filter"
         value={value}
         placeholder="Search"
         onChange={onChange}
       />
-    </label>
+    </Label>
   );
 }
+
+Filter.propTypes = {
+  value: PropTypes.string.isRequired,
+};

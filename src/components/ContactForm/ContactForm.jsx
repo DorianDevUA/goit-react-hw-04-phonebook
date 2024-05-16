@@ -1,5 +1,6 @@
 import { nanoid } from 'nanoid';
 import { Component } from 'react';
+import { StyledForm, SubmitBtn } from './ContactForm.styled';
 
 export class ContactForm extends Component {
   state = {
@@ -31,7 +32,7 @@ export class ContactForm extends Component {
     const { name, number } = this.state;
 
     return (
-      <form onSubmit={this.handleSubmit}>
+      <StyledForm onSubmit={this.handleSubmit}>
         <label htmlFor={this.nameImputId}>Name</label>
         <input
           type="text"
@@ -50,8 +51,8 @@ export class ContactForm extends Component {
           onChange={this.handleChange}
           required
         />
-        <button type="submit">Add contact</button>
-      </form>
+        <SubmitBtn type="submit">Add contact</SubmitBtn>
+      </StyledForm>
     );
   }
 }
