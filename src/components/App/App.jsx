@@ -12,13 +12,6 @@ export class App extends Component {
     filter: '',
   };
 
-  checkNameInContacts = name => {
-    const { contacts } = this.state;
-    const normalizedName = name.toLowerCase();
-
-    return contacts.some(({ name }) => name.toLowerCase() === normalizedName);
-  };
-
   addContact = (name, number) => {
     const isNameExist = this.checkNameInContacts(name);
 
@@ -44,6 +37,13 @@ export class App extends Component {
     }));
   };
 
+  checkNameInContacts = name => {
+    const { contacts } = this.state;
+    const normalizedName = name.toLowerCase();
+
+    return contacts.some(({ name }) => name.toLowerCase() === normalizedName);
+  };
+
   handleFilterChange = evt => {
     const { value } = evt.target;
     this.setState({ filter: value });
@@ -53,8 +53,8 @@ export class App extends Component {
     const { contacts, filter } = this.state;
     const normalizedFilter = filter.toLowerCase();
 
-    return contacts.filter(contact =>
-      contact.name.toLowerCase().includes(normalizedFilter),
+    return contacts.filter(({ name }) =>
+      name.toLowerCase().includes(normalizedFilter),
     );
   };
 
