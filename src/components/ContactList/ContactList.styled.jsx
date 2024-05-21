@@ -8,7 +8,7 @@ export const Contacts = styled.ul`
   padding-bottom: ${({ theme }) => theme.spacing(2)};
 `;
 
-export const ContactCard = styled.li`
+export const ContactItem = styled.li`
   display: flex;
   justify-content: space-between;
   align-items: center;

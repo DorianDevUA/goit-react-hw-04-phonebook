@@ -5,9 +5,9 @@ import {
   ContactInfo,
   ContactName,
   ContactPhone,
-} from './ContactItem.styled';
+} from './ContactCard.styled';
 
-export function ContactItem({ id, name, number, onDeleteContact }) {
+export function ContactCard({ id, name, number, onDeleteContact }) {
   return (
     <>
       <ContactInfo>
@@ -25,7 +25,7 @@ export function ContactItem({ id, name, number, onDeleteContact }) {
   );
 }
 
-ContactItem.propTypes = {
+ContactCard.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   number: PropTypes.string.isRequired,
