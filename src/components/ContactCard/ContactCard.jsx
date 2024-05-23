@@ -7,7 +7,7 @@ import {
   ContactPhone,
 } from './ContactCard.styled';
 
-export function ContactCard({ id, name, number, onDeleteContact }) {
+export function ContactCard({ name, number, onDeleteContact }) {
   return (
     <>
       <ContactInfo>
@@ -20,13 +20,12 @@ export function ContactCard({ id, name, number, onDeleteContact }) {
           {number}
         </ContactPhone>
       </ContactInfo>
-      <DeleteBtn onClick={() => onDeleteContact(id)}>Delete</DeleteBtn>
+      <DeleteBtn onClick={onDeleteContact}>Delete</DeleteBtn>
     </>
   );
 }
 
 ContactCard.propTypes = {
-  id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   number: PropTypes.string.isRequired,
   onDeleteContact: PropTypes.func.isRequired,
