@@ -5,6 +5,8 @@ import { ContactList } from '../ContactList';
 import { Filter } from '../Filter';
 import { Modal } from '../Modal';
 import { Container } from './App.styled';
+import { StyledIconBtn } from '../IconButton';
+import AddContactBtn from '../../icons/add-contact.svg?react';
 // import contacts from '../../contacts.json';
 
 const LOCAL_STORAGE_KEY = 'contacts';
@@ -32,6 +34,10 @@ export class App extends Component {
 
     if (contacts !== prevContacts) {
       localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(contacts));
+    }
+
+    if (contacts.length > prevContacts.length && prevContacts.length !== 0) {
+      this.toggleModal();
     }
   }
 
@@ -99,14 +105,16 @@ export class App extends Component {
 
     return (
       <Container>
-        {showModal && <Modal onClose={this.toggleModal}>
-          <h2>Hello World!</h2>
-          <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Culpa a, nostrum similique sit at quas molestias recusandae sequi, distinctio ducimus autem dolores quibusdam, quidem dolore nam non! Harum dolor, non placeat ea culpa saepe nemo est ab quae soluta rerum aliquam, dolores minus doloremque, voluptatem dignissimos ratione porro eum? Sed!</p>
-          <button type="button" onClick={this.toggleModal}>Close Modal</button>
-        </Modal>}
+        {showModal && (
+          <Modal onClose={this.toggleModal}>
+            <ContactForm onSubmit={this.addContact} />
+            <button type="button" onClick={this.toggleModal}>
+              Close Modal
+            </button>
+          </Modal>
+        )}
         <h1>Phonebook</h1>
         <p>Всього контактів: {totalContacts}</p>
-        <ContactForm onSubmit={this.addContact} />
 
         <h2>Contacts</h2>
         <Filter value={filter} onChange={this.handleFilterChange} />
@@ -114,7 +122,9 @@ export class App extends Component {
           contacts={filtredContacts}
           onDeleteContact={this.deleteContact}
         />
-        <button type="button" onClick={this.toggleModal}>Open Modal</button>
+        <StyledIconBtn onClick={this.toggleModal} aria-label="Add New Contact">
+          <AddContactBtn width="24" height="24" />
+        </StyledIconBtn>
       </Container>
     );
   }

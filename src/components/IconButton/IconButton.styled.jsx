@@ -1,0 +1,17 @@
+import styled from 'styled-components';
+
+export const StyledIconBtn = styled.button`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  font: inherit;
+  margin: 0;
+  padding: 10px;
+  color: ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme }) => theme.colors.green};
+
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+`;
