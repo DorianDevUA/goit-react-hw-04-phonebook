@@ -1,6 +1,7 @@
+import { Field, Form } from 'formik';
 import styled from 'styled-components';
 
-export const StyledForm = styled.form`
+export const StyledForm = styled(Form)`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -8,12 +9,17 @@ export const StyledForm = styled.form`
   padding: ${({ theme }) => theme.spacing(1)};
   border: 1px solid ${({ theme }) => theme.colors.black};
   border-radius: 4px;
+`;
 
-  input {
-    padding: ${({ theme }) => theme.spacing(1)};
-    border: 1px solid ${({ theme }) => theme.colors.black};
-    border-radius: 2px;
-  }
+export const Label = styled.span`
+  display: block;
+`;
+
+export const StyledField = styled(Field)`
+  width: 100%;
+  padding: ${({ theme }) => theme.spacing(1)};
+  border: 1px solid ${({ theme }) => theme.colors.black};
+  border-radius: 2px;
 `;
 
 export const SubmitBtn = styled.button`

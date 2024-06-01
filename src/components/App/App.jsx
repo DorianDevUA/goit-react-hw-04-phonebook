@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import { nanoid } from 'nanoid';
-import { ContactForm } from '../ContactForm';
+import { ContactFormFormik } from '../ContactFormFormik';
 import { ContactList } from '../ContactList';
 import { Filter } from '../Filter';
 import { Modal } from '../Modal';
@@ -107,7 +107,7 @@ export class App extends Component {
       <Container>
         {showModal && (
           <Modal onClose={this.toggleModal}>
-            <ContactForm onSubmit={this.addContact} />
+            <ContactFormFormik onSubmit={this.addContact} />
             <button type="button" onClick={this.toggleModal}>
               Close Modal
             </button>
