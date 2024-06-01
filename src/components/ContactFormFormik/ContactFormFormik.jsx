@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { Formik, ErrorMessage } from 'formik';
+import { Formik } from 'formik';
 import { nanoid } from 'nanoid';
 import * as Yup from 'yup';
 import { FormError } from '../FormError';
@@ -11,7 +11,7 @@ import {
 } from './ContactFormFormik.styled';
 
 const phoneRegExp =
-  /^[\+]?3?[\s]?8?[\s]?\(?0\d{2}?\)?[\s]?\d{3}[\s|-]?\d{2}[\s|-]?\d{2}$/;
+  /^[+]?3?[\s]?8?[\s]?\(?0\d{2}?\)?[\s]?\d{3}[\s|-]?\d{2}[\s|-]?\d{2}$/;
 
 const schema = Yup.object().shape({
   name: Yup.string().required(),
@@ -54,7 +54,6 @@ export const ContactFormFormik = ({ onSubmit }) => {
             <Label>Number</Label>
             <StyledField type="tel" name="number" id={numberImputId} />
             <FormError name="number" />
-            {/* <ErrorMessage name="number" component="div" /> */}
           </label>
 
           <SubmitBtn type="submit">Add contact</SubmitBtn>
