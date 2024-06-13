@@ -5,7 +5,7 @@ import svgr from 'vite-plugin-svgr';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [svgr(), react()],
-  base: 'goit-react-hw-03-phonebook-formik',
+  base: 'goit-react-hw-04-phonebook',
   build: {
     sourcemap: true,
   },
