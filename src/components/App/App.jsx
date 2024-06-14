@@ -1,48 +1,37 @@
-import { Component } from 'react';
+import { useEffect, useState } from 'react';
 import { nanoid } from 'nanoid';
-import { ContactFormFormik } from '../ContactFormFormik';
-import { ContactList } from '../ContactList';
-import { Filter } from '../Filter';
-import { Modal } from '../Modal';
+import ContactFormFormik from '../ContactFormFormik';
+import ContactList from '../ContactList';
+import Filter from '../Filter';
+import Modal from '../Modal';
+import AddContactBtn from '../../icons/add-contact.svg?react';
 import { Container } from './App.styled';
 import { StyledIconBtn } from '../IconButton';
-import AddContactBtn from '../../icons/add-contact.svg?react';
 // import contacts from '../../contacts.json';
 
-const LOCAL_STORAGE_KEY = 'contacts';
+const LOCAL_STORAGE_KEY = 'localContacts';
 
-export class App extends Component {
-  state = {
-    contacts: [],
-    filter: '',
-    showModal: false,
-  };
+const App = () => {
+  const [contacts, setContacts] = useState([]);
+  const [filter, setFilter] = useState('');
+  const [showModal, setShowModal] = useState(false);
 
-  componentDidMount() {
+  useEffect(() => {
     const savedContacts = localStorage.getItem(LOCAL_STORAGE_KEY);
     const parsedContacts = JSON.parse(savedContacts);
-
     if (parsedContacts) {
-      this.setState({ contacts: parsedContacts });
+      setContacts(parsedContacts);
     }
-  }
+  }, []);
 
-  // componentDidUpdate приймає 3 параметри "prevProps", "prevState", необовязковий "snapshot".)
-  componentDidUpdate(prevProps, prevState) {
-    const { contacts } = this.state;
-    const { contacts: prevContacts } = prevState;
+  useEffect(() => {
+    contacts.length
+      ? localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(contacts))
+      : localStorage.removeItem(LOCAL_STORAGE_KEY);
+  }, [contacts]);
 
-    if (contacts !== prevContacts) {
-      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(contacts));
-    }
-
-    if (contacts.length > prevContacts.length && prevContacts.length !== 0) {
-      this.toggleModal();
-    }
-  }
-
-  addContact = (name, number) => {
-    const isNameExist = this.checkNameInContacts(name);
+  const addContact = (name, number) => {
+    const isNameExist = checkNameInContacts(name);
 
     if (isNameExist) {
       alert(`Контакт "${name}" вже існує!`);
@@ -55,31 +44,30 @@ export class App extends Component {
       number,
     };
 
-    this.setState(({ contacts }) => ({
-      contacts: [newContact, ...contacts],
-    }));
+    setContacts([newContact, ...contacts]);
+    toggleModal();
   };
 
-  deleteContact = contactId => {
-    this.setState(({ contacts }) => ({
-      contacts: contacts.filter(({ id }) => id !== contactId),
-    }));
-  };
-
-  checkNameInContacts = name => {
-    const { contacts } = this.state;
+  const checkNameInContacts = name => {
     const normalizedName = name.toLowerCase();
 
     return contacts.some(({ name }) => name.toLowerCase() === normalizedName);
   };
 
-  handleFilterChange = evt => {
-    const { value } = evt.target;
-    this.setState({ filter: value });
+  const deleteContact = contactId => {
+    setContacts(contacts.filter(({ id }) => id !== contactId));
   };
 
-  getFilteredContacts = () => {
-    const { contacts, filter } = this.state;
+  const toggleModal = () => {
+    setShowModal(!showModal);
+  };
+
+  const handleFilterChange = evt => {
+    const { value } = evt.target;
+    setFilter(value);
+  };
+
+  const getFilteredContacts = () => {
     const normalizedFilter = filter.toLowerCase();
 
     return contacts.filter(({ name }) =>
@@ -87,45 +75,29 @@ export class App extends Component {
     );
   };
 
-  getTotalContacts = () => {
-    const { contacts } = this.state;
-    return contacts.length;
-  };
+  const filtredContacts = getFilteredContacts();
 
-  toggleModal = () => {
-    this.setState(({ showModal }) => ({
-      showModal: !showModal,
-    }));
-  };
+  return (
+    <Container>
+      {showModal && (
+        <Modal onClose={toggleModal}>
+          <ContactFormFormik onSubmit={addContact} />
+          <button type="button" onClick={toggleModal}>
+            Close Modal
+          </button>
+        </Modal>
+      )}
+      <h1>Phonebook</h1>
+      <p>Всього контактів: {contacts.length}</p>
 
-  render() {
-    const { filter, showModal } = this.state;
-    const filtredContacts = this.getFilteredContacts();
-    const totalContacts = this.getTotalContacts();
+      <h2>Contacts</h2>
+      <Filter value={filter} onChange={handleFilterChange} />
+      <ContactList contacts={filtredContacts} onDeleteContact={deleteContact} />
+      <StyledIconBtn onClick={toggleModal} aria-label="Add New Contact">
+        <AddContactBtn width="24" height="24" />
+      </StyledIconBtn>
+    </Container>
+  );
+};
 
-    return (
-      <Container>
-        {showModal && (
-          <Modal onClose={this.toggleModal}>
-            <ContactFormFormik onSubmit={this.addContact} />
-            <button type="button" onClick={this.toggleModal}>
-              Close Modal
-            </button>
-          </Modal>
-        )}
-        <h1>Phonebook</h1>
-        <p>Всього контактів: {totalContacts}</p>
-
-        <h2>Contacts</h2>
-        <Filter value={filter} onChange={this.handleFilterChange} />
-        <ContactList
-          contacts={filtredContacts}
-          onDeleteContact={this.deleteContact}
-        />
-        <StyledIconBtn onClick={this.toggleModal} aria-label="Add New Contact">
-          <AddContactBtn width="24" height="24" />
-        </StyledIconBtn>
-      </Container>
-    );
-  }
-}
+export default App;

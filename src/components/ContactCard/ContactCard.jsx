@@ -7,7 +7,7 @@ import {
   ContactPhone,
 } from './ContactCard.styled';
 
-export function ContactCard({ name, number, onDeleteContact }) {
+const ContactCard = ({ name, number, onDeleteContact }) => {
   return (
     <>
       <ContactInfo>
@@ -23,10 +23,12 @@ export function ContactCard({ name, number, onDeleteContact }) {
       <DeleteBtn onClick={onDeleteContact}>Delete</DeleteBtn>
     </>
   );
-}
+};
 
 ContactCard.propTypes = {
   name: PropTypes.string.isRequired,
   number: PropTypes.string.isRequired,
   onDeleteContact: PropTypes.func.isRequired,
 };
+
+export default ContactCard;

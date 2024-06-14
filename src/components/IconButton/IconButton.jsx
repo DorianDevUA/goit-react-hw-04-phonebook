@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 
-export function IconButton({ children, onClick, ...allyProps }) {
+const IconButton = ({ children, onClick, ...allyProps }) => {
   return (
     <button type="button" onClick={onClick} {...allyProps}>
       {children}
     </button>
   );
-}
+};
 
 IconButton.defautProps = {
   children: null,
@@ -18,3 +18,5 @@ IconButton.propTypes = {
   onClick: PropTypes.func,
   'aria-label': PropTypes.string.isRequired,
 };
+
+export default IconButton;

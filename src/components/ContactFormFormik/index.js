@@ -1,1 +1,1 @@
-export * from './ContactFormFormik'
+export { default } from './ContactFormFormik';

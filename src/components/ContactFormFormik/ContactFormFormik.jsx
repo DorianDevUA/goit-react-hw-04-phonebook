@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { Formik } from 'formik';
 import { nanoid } from 'nanoid';
 import * as Yup from 'yup';
-import { FormError } from '../FormError';
+import FormError from '../FormError';
 import {
   Label,
   StyledField,
@@ -25,7 +25,7 @@ const initialValues = {
   number: '',
 };
 
-export const ContactFormFormik = ({ onSubmit }) => {
+const ContactFormFormik = ({ onSubmit }) => {
   const nameImputId = nanoid();
   const numberImputId = nanoid();
 
@@ -66,3 +66,5 @@ export const ContactFormFormik = ({ onSubmit }) => {
 ContactFormFormik.propTypes = {
   onSubmit: PropTypes.func.isRequired,
 };
+
+export default ContactFormFormik;
